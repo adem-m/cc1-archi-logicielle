@@ -1,11 +1,12 @@
 package com.mrizak.register.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository {
-    void save(Member user);
+    void save(Member member);
 
-    Member byId(MemberId userId);
+    Optional<Member> byId(MemberId memberId);
 
     MemberId nextIdentity();
 

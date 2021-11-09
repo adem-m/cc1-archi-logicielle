@@ -5,6 +5,7 @@ import com.mrizak.register.domain.MemberId;
 import com.mrizak.register.domain.MemberRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class PSQLMemberRepository implements MemberRepository {
     @Override
@@ -13,7 +14,7 @@ public final class PSQLMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Member byId(MemberId userId) {
+    public Optional<Member> byId(MemberId userId) {
         throw new UnsupportedOperationException("Not yet implemented.");
     }
 
