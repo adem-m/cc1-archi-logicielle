@@ -1,5 +1,7 @@
-package com.mrizak.payment.domain;
+package com.mrizak.payment.application;
 
+import com.mrizak.payment.domain.Payment;
+import com.mrizak.payment.domain.PaymentRepository;
 import com.mrizak.payment.domain.validation.PaymentValidationEngine;
 import com.mrizak.register.domain.MemberRepository;
 

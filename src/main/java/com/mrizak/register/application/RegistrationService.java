@@ -1,4 +1,7 @@
-package com.mrizak.register.domain;
+package com.mrizak.register.application;
+
+import com.mrizak.register.domain.Member;
+import com.mrizak.register.domain.MemberRepository;
 
 public final class RegistrationService {
     private final MemberRepository memberRepository;
