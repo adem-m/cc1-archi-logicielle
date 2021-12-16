@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface MemberRepository {
     void save(Member member);
 
-    Optional<Member> byId(MemberId memberId);
+    Member byId(MemberId memberId);
 
     MemberId nextIdentity();
 

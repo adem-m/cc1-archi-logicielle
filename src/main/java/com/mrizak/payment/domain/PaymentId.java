@@ -1,6 +1,8 @@
 package com.mrizak.payment.domain;
 
-public final class PaymentId {
+import com.mrizak.kernel.ValueObjectID;
+
+public final class PaymentId implements ValueObjectID {
     private final int value;
 
     private PaymentId(int value) {

@@ -5,7 +5,6 @@ import com.mrizak.payment.domain.PaymentId;
 import com.mrizak.payment.domain.PaymentRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public final class PSQLPaymentRepository implements PaymentRepository {
     @Override
@@ -14,7 +13,7 @@ public final class PSQLPaymentRepository implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> byId(PaymentId paymentId) {
+    public Payment byId(PaymentId paymentId) {
         throw new UnsupportedOperationException("Not yet implemented.");
     }
 

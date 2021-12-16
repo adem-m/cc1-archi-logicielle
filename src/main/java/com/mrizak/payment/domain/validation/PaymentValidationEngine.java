@@ -1,5 +1,6 @@
 package com.mrizak.payment.domain.validation;
 
+import com.mrizak.kernel.NoSuchEntityException;
 import com.mrizak.payment.domain.Payment;
 import com.mrizak.register.domain.MemberRepository;
 
@@ -14,6 +15,11 @@ public final class PaymentValidationEngine implements Predicate<Payment> {
 
     @Override
     public boolean test(Payment payment) {
-        return memberRepository.byId(payment.getMember().getId()).isPresent();
+        try {
+            memberRepository.byId(payment.getMember().getId());
+            return true;
+        } catch (NoSuchEntityException e) {
+            return false;
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.mrizak.register.domain;
 
-public final class MemberId {
+import com.mrizak.kernel.ValueObjectID;
+
+public final class MemberId implements ValueObjectID {
     private final int value;
 
     private MemberId(int value) {
