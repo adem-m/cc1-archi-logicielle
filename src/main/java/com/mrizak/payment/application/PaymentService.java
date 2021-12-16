@@ -17,9 +17,9 @@ public final class PaymentService {
 
     public void proceedInitialPayment(Payment payment) {
         PaymentValidationEngine paymentValidationEngine = new PaymentValidationEngine(memberRepository);
-        if (paymentValidationEngine.test(payment)) {
-            this.paymentRepository.save(payment);
+        if (!paymentValidationEngine.test(payment)) {
+            throw new IllegalArgumentException("Invalid payment");
         }
-        throw new IllegalArgumentException("Invalid payment");
+        this.paymentRepository.save(payment);
     }
 }
