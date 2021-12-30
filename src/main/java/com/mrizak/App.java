@@ -12,10 +12,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Collections;
+
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        final ConfigurableApplicationContext applicationContext = SpringApplication.run(App.class, args);
+        SpringApplication springApplication = new SpringApplication(App.class);
+        springApplication.setDefaultProperties(Collections.singletonMap("server.port", "8081"));
+        final ConfigurableApplicationContext applicationContext = springApplication.run(args);
 
         MemberRepository memberRepository = applicationContext.getBean(MemberRepository.class);
         RegistrationService registrationService = applicationContext.getBean(RegistrationService.class);

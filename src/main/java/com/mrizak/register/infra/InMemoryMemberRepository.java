@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class InMemoryMemberRepository implements MemberRepository {
-    private final AtomicInteger count = new AtomicInteger(0);
+    private final AtomicInteger count = new AtomicInteger(1);
     private final Map<MemberId, Member> data = new ConcurrentHashMap<>();
 
     @Override

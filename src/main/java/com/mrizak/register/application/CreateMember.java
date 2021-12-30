@@ -4,11 +4,12 @@ import com.mrizak.kernel.command.Command;
 
 public final class CreateMember implements Command {
 
-    public final String lastname;
     public final String firstname;
+    public final String lastname;
 
-    public CreateMember(String lastname, String firstname) {
-        this.lastname = lastname;
+
+    public CreateMember(String firstname, String lastname) {
         this.firstname = firstname;
+        this.lastname = lastname;
     }
 }
