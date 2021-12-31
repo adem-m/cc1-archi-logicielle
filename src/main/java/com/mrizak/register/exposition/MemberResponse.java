@@ -4,11 +4,13 @@ public class MemberResponse {
     public String id;
     public String firstname;
     public String lastname;
+    public String type;
 
-    public MemberResponse(String id, String firstname, String lastname) {
+    public MemberResponse(String id, String firstname, String lastname, String type) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.type = type;
     }
 
     @Override
@@ -17,6 +19,7 @@ public class MemberResponse {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

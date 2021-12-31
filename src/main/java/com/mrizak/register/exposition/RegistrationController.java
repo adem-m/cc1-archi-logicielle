@@ -4,10 +4,12 @@ import com.mrizak.kernel.NoSuchEntityException;
 import com.mrizak.kernel.command.CommandBus;
 import com.mrizak.kernel.query.QueryBus;
 import com.mrizak.register.application.CreateMember;
+import com.mrizak.register.application.IllegalMemberTypeException;
 import com.mrizak.register.application.RetrieveMemberById;
 import com.mrizak.register.application.RetrieveMembers;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberId;
+import com.mrizak.register.domain.MemberType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +42,8 @@ public class RegistrationController {
                         new MemberResponse(
                                 member.getId().getValue(),
                                 member.getFirstName(),
-                                member.getLastName()
+                                member.getLastName(),
+                                MemberType.fromClass(member.getClass()).getValue()
                         )).collect(Collectors.toList()));
         return ResponseEntity.ok(membersResponse);
     }
@@ -52,13 +55,15 @@ public class RegistrationController {
         MemberResponse memberResponse = new MemberResponse(
                 member.getId().getValue(),
                 member.getFirstName(),
-                member.getLastName());
+                member.getLastName(),
+                MemberType.fromClass(member.getClass()).getValue()
+        );
         return ResponseEntity.ok(memberResponse);
     }
 
     @PostMapping(value = "/members", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Void> create(@RequestBody @Valid MemberRequest memberRequest) {
-        CreateMember createMember = new CreateMember(memberRequest.firstname, memberRequest.lastname);
+        CreateMember createMember = new CreateMember(memberRequest.type, memberRequest.firstname, memberRequest.lastname);
         MemberId memberId = commandBus.send(createMember);
         return ResponseEntity.created(URI.create("/members/" + memberId.getValue())).build();
     }
@@ -90,6 +95,12 @@ public class RegistrationController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchEntityException.class)
     public Map<String, String> handleNoSuchException(NoSuchEntityException exception) {
+        return Collections.singletonMap("message", exception.getLocalizedMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalMemberTypeException.class)
+    public Map<String, String> handleIllegalMemberTypeException(IllegalMemberTypeException exception) {
         return Collections.singletonMap("message", exception.getLocalizedMessage());
     }
 }

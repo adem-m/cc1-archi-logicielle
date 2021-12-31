@@ -1,4 +1,4 @@
-package com.mrizak.payment.infra;
+package com.mrizak.payment.application;
 
 import com.mrizak.payment.domain.Amount;
 import com.mrizak.payment.domain.Payment;

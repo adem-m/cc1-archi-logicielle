@@ -3,7 +3,7 @@ package com.mrizak;
 import com.mrizak.payment.application.PaymentService;
 import com.mrizak.payment.domain.Payment;
 import com.mrizak.payment.domain.PaymentRepository;
-import com.mrizak.payment.infra.PaymentFactory;
+import com.mrizak.payment.application.PaymentFactory;
 import com.mrizak.register.application.RegistrationService;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberRepository;
