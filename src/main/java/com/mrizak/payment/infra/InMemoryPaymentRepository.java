@@ -30,7 +30,7 @@ public class InMemoryPaymentRepository implements PaymentRepository {
 
     @Override
     public PaymentId nextIdentity() {
-        return PaymentId.of(count.getAndIncrement());
+        return new PaymentId(count.getAndIncrement());
     }
 
     @Override

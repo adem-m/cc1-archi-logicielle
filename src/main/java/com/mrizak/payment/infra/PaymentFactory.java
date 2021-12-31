@@ -14,6 +14,6 @@ public final class PaymentFactory {
         if (!MemberValidator.getInstance().test(member)) {
             throw new InvalidMemberException();
         }
-        return Payment.of(id, member, Amount.of(INITIAL_PAYMENT_AMOUNT));
+        return Payment.of(id, member.getId(), new Amount(INITIAL_PAYMENT_AMOUNT));
     }
 }

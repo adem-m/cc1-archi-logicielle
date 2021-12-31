@@ -16,7 +16,7 @@ public final class PaymentValidationEngine implements Predicate<Payment> {
     @Override
     public boolean test(Payment payment) {
         try {
-            memberRepository.byId(payment.getMember().getId());
+            memberRepository.byId(payment.getMemberId());
             return true;
         } catch (NoSuchEntityException e) {
             return false;

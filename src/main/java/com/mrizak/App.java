@@ -7,7 +7,7 @@ import com.mrizak.payment.infra.PaymentFactory;
 import com.mrizak.register.application.RegistrationService;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberRepository;
-import com.mrizak.register.infra.MemberFactory;
+import com.mrizak.register.application.MemberFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

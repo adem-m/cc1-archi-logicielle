@@ -16,6 +16,6 @@ public final class MemberValidator implements Predicate<Member> {
 
     @Override
     public boolean test(Member member) {
-        return member.getId() != null && member.getFirstName() != null && member.getLastName() != null;
+        return member.getFirstName().length() > 0 && member.getLastName().length() > 0;
     }
 }

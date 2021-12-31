@@ -6,7 +6,6 @@ import com.mrizak.kernel.event.EventDispatcher;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberId;
 import com.mrizak.register.domain.MemberRepository;
-import com.mrizak.register.infra.MemberFactory;
 
 public final class CreateMemberCommandHandler implements CommandHandler<CreateMember, MemberId> {
 

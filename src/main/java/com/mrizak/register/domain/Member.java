@@ -32,6 +32,16 @@ public abstract class Member {
 
         Member member = (Member) o;
 
-        return Objects.equals(id, member.id);
+        if (!Objects.equals(id, member.id)) return false;
+        if (!Objects.equals(firstName, member.firstName)) return false;
+        return Objects.equals(lastName, member.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
     }
 }
