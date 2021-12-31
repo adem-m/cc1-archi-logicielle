@@ -4,7 +4,7 @@ import com.mrizak.kernel.query.QueryHandler;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberRepository;
 
-public class RetrieveMemberByIdHandler implements QueryHandler<RetrieveMemberById, Member> {
+public final class RetrieveMemberByIdHandler implements QueryHandler<RetrieveMemberById, Member> {
 
     private final MemberRepository memberRepository;
 

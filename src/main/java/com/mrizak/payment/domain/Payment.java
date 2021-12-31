@@ -2,19 +2,19 @@ package com.mrizak.payment.domain;
 
 import com.mrizak.register.domain.MemberId;
 
-public final class Payment {
+import java.time.LocalDateTime;
+
+public abstract class Payment {
     private final PaymentId id;
     private final MemberId memberId;
     private final Amount amount;
+    private final LocalDateTime dateTime;
 
-    private Payment(PaymentId id, MemberId memberId, Amount amount) {
+    protected Payment(PaymentId id, MemberId memberId, Amount amount, LocalDateTime dateTime) {
         this.id = id;
         this.memberId = memberId;
         this.amount = amount;
-    }
-
-    public static Payment of(PaymentId id, MemberId memberId, Amount amount) {
-        return new Payment(id, memberId, amount);
+        this.dateTime = dateTime;
     }
 
     public PaymentId getId() {
@@ -27,5 +27,9 @@ public final class Payment {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 }

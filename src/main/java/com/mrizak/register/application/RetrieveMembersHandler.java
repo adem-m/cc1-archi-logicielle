@@ -6,7 +6,7 @@ import com.mrizak.register.domain.MemberRepository;
 
 import java.util.List;
 
-public class RetrieveMembersHandler implements QueryHandler<RetrieveMembers, List<Member>> {
+public final class RetrieveMembersHandler implements QueryHandler<RetrieveMembers, List<Member>> {
 
     private final MemberRepository memberRepository;
 

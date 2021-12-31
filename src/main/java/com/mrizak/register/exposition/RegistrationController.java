@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-public class RegistrationController {
+public final class RegistrationController {
 
     private final CommandBus commandBus;
     private final QueryBus queryBus;
@@ -37,7 +37,7 @@ public class RegistrationController {
     @GetMapping(value = "/members", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<MembersResponse> getAll() {
         final List<Member> members = queryBus.send(new RetrieveMembers());
-        MembersResponse membersResponse =
+        final MembersResponse membersResponse =
                 new MembersResponse(members.stream().map(member ->
                         new MemberResponse(
                                 member.getId().getValue(),
@@ -51,8 +51,8 @@ public class RegistrationController {
     @GetMapping(value = "/members/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<MemberResponse> getById(@PathVariable int id) {
         final MemberId memberId = MemberId.of(id);
-        Member member = queryBus.send(new RetrieveMemberById(memberId));
-        MemberResponse memberResponse = new MemberResponse(
+        final Member member = queryBus.send(new RetrieveMemberById(memberId));
+        final MemberResponse memberResponse = new MemberResponse(
                 member.getId().getValue(),
                 member.getFirstName(),
                 member.getLastName(),
@@ -63,8 +63,8 @@ public class RegistrationController {
 
     @PostMapping(value = "/members", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Void> create(@RequestBody @Valid MemberRequest memberRequest) {
-        CreateMember createMember = new CreateMember(memberRequest.type, memberRequest.firstname, memberRequest.lastname);
-        MemberId memberId = commandBus.send(createMember);
+        final CreateMember createMember = new CreateMember(memberRequest.type, memberRequest.firstname, memberRequest.lastname);
+        final MemberId memberId = commandBus.send(createMember);
         return ResponseEntity.created(URI.create("/members/" + memberId.getValue())).build();
     }
 
@@ -73,10 +73,10 @@ public class RegistrationController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+        final Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
+            final String fieldName = ((FieldError) error).getField();
+            final String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
         return errors;

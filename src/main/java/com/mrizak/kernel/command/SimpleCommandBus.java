@@ -2,7 +2,7 @@ package com.mrizak.kernel.command;
 
 import java.util.Map;
 
-public class SimpleCommandBus implements CommandBus {
+public final class SimpleCommandBus implements CommandBus {
     private final Map<Class<? extends Command>, CommandHandler> dataMap;
 
     public SimpleCommandBus(Map<Class<? extends Command>, CommandHandler> dataMap) {

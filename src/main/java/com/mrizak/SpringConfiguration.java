@@ -1,5 +1,7 @@
 package com.mrizak;
 
+import com.mrizak.kernel.Clock;
+import com.mrizak.kernel.DefaultSystemClock;
 import com.mrizak.kernel.command.Command;
 import com.mrizak.kernel.command.CommandBus;
 import com.mrizak.kernel.command.CommandHandler;
@@ -11,8 +13,9 @@ import com.mrizak.kernel.query.Query;
 import com.mrizak.kernel.query.QueryBus;
 import com.mrizak.kernel.query.QueryHandler;
 import com.mrizak.kernel.query.SimpleQueryBus;
-import com.mrizak.payment.application.PaymentService;
+import com.mrizak.payment.application.*;
 import com.mrizak.payment.domain.PaymentRepository;
+import com.mrizak.payment.domain.validation.PaymentValidationEngine;
 import com.mrizak.payment.infra.InMemoryPaymentRepository;
 import com.mrizak.register.application.*;
 import com.mrizak.register.domain.MemberRepository;
@@ -30,6 +33,11 @@ import java.util.Map;
 public class SpringConfiguration {
 
     @Bean
+    public Clock clock() {
+        return new DefaultSystemClock();
+    }
+
+    @Bean
     public MemberRepository memberRepository() {
         return new InMemoryMemberRepository();
     }
@@ -40,13 +48,23 @@ public class SpringConfiguration {
     }
 
     @Bean
+    public PaymentValidationEngine paymentValidationEngine() {
+        return new PaymentValidationEngine(memberRepository());
+    }
+
+    @Bean
     public PaymentRepository paymentRepository() {
         return new InMemoryPaymentRepository();
     }
 
     @Bean
     public PaymentService paymentService() {
-        return new PaymentService(paymentRepository(), memberRepository());
+        return new PaymentService(paymentRepository(), paymentValidationEngine());
+    }
+
+    @Bean
+    public PaymentFactory paymentFactory() {
+        return new PaymentFactory(clock());
     }
 
     @Bean
@@ -68,6 +86,8 @@ public class SpringConfiguration {
         final Map<Class<? extends Query>, QueryHandler> queryHandlerMap = new HashMap<>();
         queryHandlerMap.put(RetrieveMembers.class, new RetrieveMembersHandler(memberRepository()));
         queryHandlerMap.put(RetrieveMemberById.class, new RetrieveMemberByIdHandler(memberRepository()));
+        queryHandlerMap.put(RetrievePaymentById.class, new RetrievePaymentByIdHandler(paymentRepository()));
+        queryHandlerMap.put(RetrievePaymentsByMemberId.class, new RetrievePaymentsByMemberIdHandler(paymentRepository()));
         return new SimpleQueryBus(queryHandlerMap);
     }
 }

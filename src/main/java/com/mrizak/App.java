@@ -1,13 +1,13 @@
 package com.mrizak;
 
-import com.mrizak.payment.application.PaymentService;
-import com.mrizak.payment.domain.Payment;
-import com.mrizak.payment.domain.PaymentRepository;
 import com.mrizak.payment.application.PaymentFactory;
+import com.mrizak.payment.application.PaymentService;
+import com.mrizak.payment.domain.InitialPayment;
+import com.mrizak.payment.domain.PaymentRepository;
+import com.mrizak.register.application.MemberFactory;
 import com.mrizak.register.application.RegistrationService;
 import com.mrizak.register.domain.Member;
 import com.mrizak.register.domain.MemberRepository;
-import com.mrizak.register.application.MemberFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -31,10 +31,11 @@ public class App {
 
         PaymentRepository paymentRepository = applicationContext.getBean(PaymentRepository.class);
         PaymentService paymentService = applicationContext.getBean(PaymentService.class);
-        Payment payment = PaymentFactory.createInitialPayment(
+        PaymentFactory paymentFactory = applicationContext.getBean(PaymentFactory.class);
+        InitialPayment payment = paymentFactory.createInitialPayment(
                 paymentRepository.nextIdentity(),
                 member
         );
-        paymentService.proceedInitialPayment(payment);
+        paymentService.proceedPayment(payment);
     }
 }

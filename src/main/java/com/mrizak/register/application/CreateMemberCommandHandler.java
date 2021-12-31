@@ -20,7 +20,7 @@ public final class CreateMemberCommandHandler implements CommandHandler<CreateMe
 
     public MemberId handle(CreateMember createMember) {
         final MemberId memberId = memberRepository.nextIdentity();
-        MemberType memberType = MemberType.fromString(createMember.type);
+        final MemberType memberType = MemberType.fromString(createMember.type);
         Member member = null;
         if (memberType == MemberType.STANDARD) {
             member = MemberFactory.createStandard(memberId, createMember.firstname, createMember.lastname);

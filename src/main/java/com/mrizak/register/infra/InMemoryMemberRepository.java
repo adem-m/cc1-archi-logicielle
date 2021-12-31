@@ -21,7 +21,7 @@ public final class InMemoryMemberRepository implements MemberRepository {
 
     @Override
     public Member byId(MemberId memberId) {
-        Member member = data.get(memberId);
+        final Member member = data.get(memberId);
         if (member == null) {
             throw NoSuchEntityException.withId(memberId);
         }

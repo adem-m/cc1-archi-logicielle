@@ -2,7 +2,7 @@ package com.mrizak.kernel.query;
 
 import java.util.Map;
 
-public class SimpleQueryBus implements QueryBus {
+public final class SimpleQueryBus implements QueryBus {
     private final Map<Class<? extends Query>, QueryHandler> dataMap;
 
     public SimpleQueryBus(Map<Class<? extends Query>, QueryHandler> dataMap) {

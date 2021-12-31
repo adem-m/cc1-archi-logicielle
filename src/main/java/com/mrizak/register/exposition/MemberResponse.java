@@ -1,6 +1,6 @@
 package com.mrizak.register.exposition;
 
-public class MemberResponse {
+public final class MemberResponse {
     public String id;
     public String firstname;
     public String lastname;

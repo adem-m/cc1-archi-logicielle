@@ -3,20 +3,17 @@ package com.mrizak.payment.application;
 import com.mrizak.payment.domain.Payment;
 import com.mrizak.payment.domain.PaymentRepository;
 import com.mrizak.payment.domain.validation.PaymentValidationEngine;
-import com.mrizak.register.domain.MemberRepository;
 
 public final class PaymentService {
     private final PaymentRepository paymentRepository;
-    private final MemberRepository memberRepository;
+    private final PaymentValidationEngine paymentValidationEngine;
 
-    public PaymentService(PaymentRepository paymentRepository,
-                          MemberRepository memberRepository) {
+    public PaymentService(PaymentRepository paymentRepository, PaymentValidationEngine paymentValidationEngine) {
         this.paymentRepository = paymentRepository;
-        this.memberRepository = memberRepository;
+        this.paymentValidationEngine = paymentValidationEngine;
     }
 
-    public void proceedInitialPayment(Payment payment) {
-        PaymentValidationEngine paymentValidationEngine = new PaymentValidationEngine(memberRepository);
+    public void proceedPayment(Payment payment) {
         if (!paymentValidationEngine.test(payment)) {
             throw new IllegalArgumentException("Invalid payment");
         }
