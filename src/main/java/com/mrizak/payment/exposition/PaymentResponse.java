@@ -1,6 +1,6 @@
 package com.mrizak.payment.exposition;
 
-public class PaymentResponse {
+public final class PaymentResponse {
     public String id;
     public String memberId;
     public double amount;

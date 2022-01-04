@@ -6,6 +6,7 @@ import com.mrizak.payment.domain.PaymentId;
 import com.mrizak.payment.domain.PaymentRepository;
 import com.mrizak.register.domain.MemberId;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,22 @@ public class InMemoryPaymentRepository implements PaymentRepository {
         payments.put(payment.getId(), payment);
         final MemberId memberId = payment.getMemberId();
         if (paymentsByMember.get(memberId) == null) {
-            paymentsByMember.put(memberId, Collections.singletonList(payment));
+            paymentsByMember.put(memberId, new ArrayList<>());
+            paymentsByMember.get(memberId).add(payment);
         } else {
             paymentsByMember.get(memberId).add(payment);
         }
+    }
+
+    @Override
+    public Payment lastPaymentOfMember(MemberId memberId) {
+        List<Payment> payments = paymentsByMember.get(memberId);
+        if (payments == null || payments.isEmpty()) {
+            throw new UnsupportedOperationException(String.format("Member with id %s has no payments yet.", memberId.getValue()));
+        }
+        return payments.stream().reduce(
+                (payment, payment2) ->
+                        payment.getDateTime().isAfter(payment2.getDateTime()) ? payment : payment2).get();
     }
 
     @Override

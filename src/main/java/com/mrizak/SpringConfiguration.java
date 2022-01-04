@@ -24,7 +24,6 @@ import com.mrizak.register.infra.InMemoryMemberRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,13 +70,15 @@ public class SpringConfiguration {
     public EventDispatcher<Event> eventDispatcher() {
         final Map<Class<? extends Event>, List<EventListener<? extends Event>>> listenerMap = new HashMap<>();
         listenerMap.put(CreateMemberEvent.class, List.of(new CreateMemberEventListener()));
+        listenerMap.put(CreatePaymentEvent.class, List.of(new CreatePaymentEventListener()));
         return new DefaultEventDispatcher(listenerMap);
     }
 
     @Bean
     public CommandBus commandBus() {
-        final Map<Class<? extends Command>, CommandHandler> commandHandlerMap =
-                Collections.singletonMap(CreateMember.class, new CreateMemberCommandHandler(memberRepository(), eventDispatcher()));
+        final Map<Class<? extends Command>, CommandHandler> commandHandlerMap = new HashMap<>();
+        commandHandlerMap.put(CreateMember.class, new CreateMemberCommandHandler(memberRepository(), eventDispatcher()));
+        commandHandlerMap.put(CreatePayment.class, new CreatePaymentCommandHandler(paymentRepository(), memberRepository(), paymentFactory(), clock()));
         return new SimpleCommandBus(commandHandlerMap);
     }
 

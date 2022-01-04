@@ -1,4 +1,11 @@
 package com.mrizak.payment.application;
 
-public final class CreatePayment {
+import com.mrizak.kernel.command.Command;
+
+public final class CreatePayment implements Command {
+    public final String memberId;
+
+    public CreatePayment(String memberId) {
+        this.memberId = memberId;
+    }
 }

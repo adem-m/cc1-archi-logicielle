@@ -14,6 +14,11 @@ public final class PSQLPaymentRepository implements PaymentRepository {
     }
 
     @Override
+    public Payment lastPaymentOfMember(MemberId memberId) {
+        throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+    @Override
     public Payment byId(PaymentId paymentId) {
         throw new UnsupportedOperationException("Not yet implemented.");
     }

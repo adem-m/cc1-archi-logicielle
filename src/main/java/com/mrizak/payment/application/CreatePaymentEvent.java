@@ -1,4 +1,12 @@
 package com.mrizak.payment.application;
 
-public final class CreatePaymentEvent {
+import com.mrizak.kernel.event.ApplicationEvent;
+import com.mrizak.payment.domain.PaymentId;
+
+public final class CreatePaymentEvent implements ApplicationEvent {
+    public final PaymentId paymentId;
+
+    public CreatePaymentEvent(PaymentId paymentId) {
+        this.paymentId = paymentId;
+    }
 }
