@@ -1,9 +1,6 @@
-package com.mrizak.payment.infra;
+package com.mrizak.payment.domain;
 
 import com.mrizak.kernel.NoSuchEntityException;
-import com.mrizak.payment.domain.Payment;
-import com.mrizak.payment.domain.PaymentId;
-import com.mrizak.payment.domain.PaymentRepository;
 import com.mrizak.register.domain.MemberId;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class InMemoryPaymentRepository implements PaymentRepository {
+public class PaymentRepositoryStub implements PaymentRepository {
     private final AtomicInteger count = new AtomicInteger(1);
     private final Map<PaymentId, Payment> payments = new ConcurrentHashMap<>();
     private final Map<MemberId, List<Payment>> paymentsByMember = new ConcurrentHashMap<>();
