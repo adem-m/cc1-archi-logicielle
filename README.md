@@ -9,6 +9,8 @@
 - Named constructor
 - Validator
 - Validation engine
+- Command Query Separation
+- Event Bus
 
 ## Good practices
 - Polymorphism
